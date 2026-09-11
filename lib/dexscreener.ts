@@ -52,3 +52,28 @@ export async function getRecentPairs(chainId: string, seedQuery: string): Promis
     .filter((p) => p.chainId === chainId)
     .sort((a, b) => (b.pairCreatedAt ?? 0) - (a.pairCreatedAt ?? 0));
 }
+
+/**
+ * Approximates a "trending" list since Dexscreener's free tier has no
+ * dedicated trending endpoint. Pulls pairs across a handful of popular
+ * seed terms for the chain, dedupes by pair address, and sorts by 24h
+ * volume — a reasonable proxy for "what's actually getting traded
+ * right now" versus a raw new-launch firehose.
+ */
+export async function getTrendingPairs(chainId: string): Promise<DexPair[]> {
+  const seeds = ["SOL", "USDC", "pump", "meme", "pepe"];
+  const results = await Promise.all(seeds.map((s) => searchPairs(s).catch(() => [])));
+
+  const seen = new Map<string, DexPair>();
+  for (const pairs of results) {
+    for (const p of pairs) {
+      if (p.chainId === chainId && !seen.has(p.pairAddress)) {
+        seen.set(p.pairAddress, p);
+      }
+    }
+  }
+
+  return Array.from(seen.values()).sort(
+    (a, b) => (b.volume?.h24 ?? 0) - (a.volume?.h24 ?? 0)
+  );
+}

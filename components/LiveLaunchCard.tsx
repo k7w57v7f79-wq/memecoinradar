@@ -64,6 +64,7 @@ export default function LiveLaunchCard({ token, seenAt }: { token: NewTokenEvent
           <div className="min-w-0">
             <div className="font-display text-base text-ink truncate">{token.symbol}</div>
             <div className="text-xs text-mute truncate">{token.name}</div>
+            <div className="text-[10px] text-mute/70 font-num truncate">{token.mint}</div>
           </div>
         </div>
         <span className="shrink-0 text-[10px] px-2 py-1 rounded bg-gain text-void font-num font-semibold">
@@ -77,11 +78,7 @@ export default function LiveLaunchCard({ token, seenAt }: { token: NewTokenEvent
           <div className="text-ink">{marketCap.toFixed(2)} SOL</div>
         </div>
         <div>
-          <div className="text-mute text-[10px] uppercase">Initial Buy</div>
-          <div className="text-gold">{(token.initialBuy ?? 0).toFixed(3)} SOL</div>
-        </div>
-        <div className="col-span-2">
-          <div className="text-mute text-[10px] uppercase">Liquidity (bonding curve)</div>
+          <div className="text-mute text-[10px] uppercase">Liquidity</div>
           <div className="text-ink">{solInCurve.toFixed(2)} SOL</div>
         </div>
       </div>

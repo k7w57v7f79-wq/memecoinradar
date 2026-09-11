@@ -30,9 +30,12 @@ export default function Home() {
           >
             ENTER THE FEED →
           </Link>
-          <div className="mt-4">
+          <div className="mt-4 flex items-center justify-center gap-4">
+            <Link href="/radar/trending" className="text-mute text-sm hover:text-ink underline underline-offset-4">
+              see what's trending
+            </Link>
             <Link href="/radar" className="text-mute text-sm hover:text-ink underline underline-offset-4">
-              or search a specific token
+              search a specific token
             </Link>
           </div>
         </div>

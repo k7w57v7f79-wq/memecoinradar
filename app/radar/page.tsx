@@ -36,6 +36,10 @@ export default function RadarPage() {
             <Link href="/radar/live" className="text-xs text-gain hover:underline">
               → want actual new memecoin launches? try the live feed
             </Link>
+            <br />
+            <Link href="/radar/trending" className="text-xs text-gain hover:underline">
+              → or see what's trending right now
+            </Link>
           </div>
           <div className="flex gap-2">
             <select

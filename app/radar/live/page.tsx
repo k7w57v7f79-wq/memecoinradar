@@ -33,7 +33,10 @@ export default function LiveLaunchesPage() {
         try {
           const data = JSON.parse(event.data);
           if (isNewTokenEvent(data)) {
-            setTokens((prev) => [{ ...data, _seenAt: Date.now() }, ...prev].slice(0, MAX_TOKENS));
+            setTokens((prev) => {
+              if (prev.some((t) => t.mint === data.mint)) return prev; // dedupe repeated events for the same token
+              return [{ ...data, _seenAt: Date.now() }, ...prev].slice(0, MAX_TOKENS);
+            });
           }
         } catch {
           // Ignore malformed messages
@@ -71,9 +74,14 @@ export default function LiveLaunchesPage() {
               Every new pump.fun token, the second it's created.
             </p>
           </div>
-          <Link href="/radar" className="text-sm text-mute hover:text-ink underline underline-offset-4">
-            search view
-          </Link>
+          <div className="flex gap-3">
+            <Link href="/radar/trending" className="text-sm text-mute hover:text-ink underline underline-offset-4">
+              trending
+            </Link>
+            <Link href="/radar" className="text-sm text-mute hover:text-ink underline underline-offset-4">
+              search view
+            </Link>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 mt-5 mb-6 text-xs font-num">
