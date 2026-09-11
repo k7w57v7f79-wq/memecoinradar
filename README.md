@@ -14,13 +14,18 @@ with a heuristic risk score.
 - A standalone risk-check API route (`/api/risk-check?q=<address>`) you
   can point a future "paste a contract, get a score" page at
 
+**Also real and working:**
+- `/radar/live` — a true real-time feed of new pump.fun token launches
+  on Solana, via PumpPortal's free public WebSocket API (no key
+  needed). This is the actual "new memecoins as they launch" view;
+  `/radar` is the older search-based page, kept as a secondary view.
+
 **Deliberately stubbed — these are the next real milestones:**
-1. **True "new pair" firehose.** Dexscreener's free tier doesn't expose
-   a pure new-pairs stream, so `getRecentPairs()` fakes it by searching
-   a seed term and sorting by creation time. For real first-to-know
-   speed, swap this for a direct on-chain indexer — Helius webhooks
-   (Solana) or a QuickNode/Alchemy stream (EVM chains) that fires the
-   moment a new liquidity pool is created.
+1. **Extend the live feed to other chains.** `/radar/live` currently
+   only covers Solana pump.fun launches via PumpPortal. EVM chains
+   (Base, Ethereum, BSC) would need their own indexer — Helius doesn't
+   cover EVM, so that'd mean QuickNode/Alchemy webhooks watching for
+   new liquidity pool creation events on those chains.
 2. **Real contract-level risk checks.** The current risk score only
    uses market data (liquidity, age, volume). It does NOT check mint
    authority, LP lock status, or simulate a buy/sell to catch

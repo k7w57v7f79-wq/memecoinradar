@@ -2,6 +2,7 @@
 
 import useSWR from "swr";
 import { useState } from "react";
+import Link from "next/link";
 import TokenCard from "@/components/TokenCard";
 import type { DexPair } from "@/lib/dexscreener";
 import type { RiskResult } from "@/lib/riskScore";
@@ -31,7 +32,10 @@ export default function RadarPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-white">Token Radar</h1>
-            <p className="text-gray-500 text-sm">Live pairs, auto-scored for risk. Refreshes every 15s.</p>
+            <p className="text-gray-500 text-sm">Search-based pairs, auto-scored for risk. Refreshes every 15s.</p>
+            <Link href="/radar/live" className="text-xs text-accent hover:underline">
+              → Want actual new memecoin launches? Try the live feed
+            </Link>
           </div>
           <div className="flex gap-2">
             <select
