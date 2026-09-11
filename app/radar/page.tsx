@@ -27,21 +27,21 @@ export default function RadarPage() {
   const tokens: TokenEntry[] = data?.tokens ?? [];
 
   return (
-    <main className="min-h-screen bg-bg px-6 py-8">
+    <main className="min-h-screen bg-void px-6 py-8">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white">Token Radar</h1>
-            <p className="text-gray-500 text-sm">Search-based pairs, auto-scored for risk. Refreshes every 15s.</p>
-            <Link href="/radar/live" className="text-xs text-accent hover:underline">
-              → Want actual new memecoin launches? Try the live feed
+            <h1 className="font-display text-2xl text-ink">TOKEN SEARCH</h1>
+            <p className="text-mute text-sm mt-1">Search-based pairs, auto-scored for risk. Refreshes every 15s.</p>
+            <Link href="/radar/live" className="text-xs text-gain hover:underline">
+              → want actual new memecoin launches? try the live feed
             </Link>
           </div>
           <div className="flex gap-2">
             <select
               value={chain}
               onChange={(e) => setChain(e.target.value)}
-              className="bg-panel border border-border rounded px-3 py-2 text-sm"
+              className="bg-panel border border-line rounded px-3 py-2 text-sm text-ink"
             >
               <option value="solana">Solana</option>
               <option value="ethereum">Ethereum</option>
@@ -52,13 +52,13 @@ export default function RadarPage() {
               value={seed}
               onChange={(e) => setSeed(e.target.value)}
               placeholder="seed query (e.g. SOL, USDC)"
-              className="bg-panel border border-border rounded px-3 py-2 text-sm w-48"
+              className="bg-panel border border-line rounded px-3 py-2 text-sm w-48 text-ink placeholder:text-mute"
             />
           </div>
         </div>
 
-        {isLoading && <p className="text-gray-500">Loading...</p>}
-        {error && <p className="text-danger">Failed to load token data.</p>}
+        {isLoading && <p className="text-mute">Loading...</p>}
+        {error && <p className="text-hot">Failed to load token data.</p>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tokens.map((t) => (
@@ -67,7 +67,7 @@ export default function RadarPage() {
         </div>
 
         {!isLoading && tokens.length === 0 && (
-          <p className="text-gray-500 mt-8 text-center">
+          <p className="text-mute mt-8 text-center">
             No pairs found for this seed query. Try a different chain or seed term.
           </p>
         )}

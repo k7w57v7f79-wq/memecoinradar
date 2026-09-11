@@ -20,6 +20,7 @@ export type DexPair = {
     h24: { buys: number; sells: number };
     h1: { buys: number; sells: number };
   };
+  info?: { imageUrl?: string };
   url: string;
 };
 
